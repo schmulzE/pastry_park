@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { Types } from 'mongoose';
 import { IRecipe } from '~/types';
-// import { useScreenDetection } from '~/composables/useScreenDetection'
 
-// const { isDesktop, redirectIfMobile } = useScreenDetection();
 const route = useRoute();
 const router = useRouter();
 const currentTab = ref<number | null>(null);
@@ -53,13 +51,18 @@ const selectTab = (index: number, name: string) => {
   currentTab.value = index;
   localStorage.setItem('currentTab', index.toString())
   localStorage.setItem('category', name);
-  // router.replace(`/browse/${name.toLowerCase()}`);
-  const selectedTab = tabs[index];
-  // Automatically navigate to the first item if it exists
-  if (selectedTab.lists.length > 0) {
-    const firstItem = selectedTab.lists[0];
-    router.replace(`/browse/${firstItem.category}/${firstItem.title.replaceAll(' ', '-').toLowerCase()}/${firstItem.id}`);
+
+  if (!isMobile) {
+    const selectedTab = tabs[index];
+    // Automatically navigate to the first item if it exists
+    if (selectedTab.lists.length > 0) {
+      const firstItem = selectedTab.lists[0];
+      router.replace(`/browse/${firstItem.category}/${firstItem.title.replaceAll(' ', '-').toLowerCase()}/${firstItem.id}`);
+    } else {
+      router.replace(`/browse/${name.toLowerCase()}`);
+    }
   } else {
+    // On mobile, just navigate to the category page
     router.replace(`/browse/${name.toLowerCase()}`);
   }
 
@@ -106,7 +109,6 @@ onMounted(() => {
 
 watch(route, () => {
   // Handle route changes when the user navigates to a new category
-  // handleIncomingRoute();
   if(!isMobile){
     handleIncomingRoute();
   }
@@ -139,7 +141,7 @@ const sortRecipes = (criteria: string) => {
         v-for="(tab, index) in tabs" 
         :key="index" 
         class="text-lg md:text-sm lg:text-sm p-2 flex justify-between hover:bg-gray-300 cursor-pointer border-b md:border-0 lg:border-0" 
-        :class="currentTab === index && 'md:bg-gray-700 lg:bg-gray-700 md:text-white lg:text-white hover:bg-gray-700'"
+        :class="currentTab === index && 'md:bg-gray-700 hover:text-white lg:bg-gray-700 md:text-white lg:text-white hover:bg-gray-700'"
         @click="selectTab(index, tab.pastry)"
         >
           <NuxtLink :to="`/browse/${tab.pastry}`">{{ tab.pastry }}</NuxtLink>
