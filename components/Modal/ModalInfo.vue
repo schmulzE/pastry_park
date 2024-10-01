@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useToast } from "vue-toastification";
-import useModalStore from '../../stores/modal';
 
 const toast = useToast();
 const loading = ref(false);
