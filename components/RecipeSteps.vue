@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-const props = defineProps(['recipe','handleRecipeSteps'])
+import { IRecipe } from '~/types';
+defineProps<{
+  recipe: IRecipe;
+  isEditable: boolean
+}>()
 </script>
 
 <template>
-  <div>steps!!!</div>
-  <RecipeEditor :payload="recipe.steps"/>
+  <RecipeEditor :payload="recipe.steps" :isEditable="isEditable"/>
 </template>
