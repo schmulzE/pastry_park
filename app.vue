@@ -2,5 +2,5 @@
   <!-- <NuxtLayout > -->
     <NuxtPage/>
   <!-- </NuxtLayout> -->
-  <!-- <Modal /> -->
+  <Modal />
 </template>
