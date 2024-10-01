@@ -1,12 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 const { iconsPlugin, getIconCollections } = require("@egoist/tailwindcss-icons")
 module.exports = {
-  content: [    './pages/**/*.{html,ts,vue}',
-  './components/**/*.{html,ts,vue}'],
+  content: [ './pages/**/*.{html,ts,vue}', './components/**/*.{html,ts,vue}' ],
+  theme: {
+    fontFamily: {
+      'source': ['Source code Pro', 'Arial', 'sans-serif'],
+      'lora': ['Lora', 'Georgia', 'serif'],
+      'mulish': [ 'Mulish', "Helvetica Neue", 'sans-serif'],
+    }
+  },
   plugins: [require('daisyui'),  
   iconsPlugin({
     // Select the icon collections you want to use
-    collections: getIconCollections(["mdi", "uil", "ph", "ri"]),
+    collections: getIconCollections(["mdi", "uil", "ph", "ri", "prime"]),
   }),
 ],
   daisyui: {
