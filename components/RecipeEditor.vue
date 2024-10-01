@@ -1,16 +1,15 @@
 <template>
-  <div
-  class="editor"
-  v-if="editor"
-  >
-    <div v-if="text" class="bg-gray-300 p-4 flex justify-center text-2xl uppercase italic font-semibold text-[#4b371c]">
+  <div class="editor" v-if="editor">
+    <div 
+    v-if="text" 
+    class="bg-gray-300 font-source rounded-none p-4 flex justify-center text-2xl uppercase italic font-semibold text-[#4b371c]"
+    >
       {{ text }}
-    <div>
+      <div></div>
     </div>
-  </div>
 
     <editor-content 
-      class="editor_content outline-none text-left p-1 border-0" v-model="contents" :editor="editor"
+      class="editor_content mt-28 md:mt-0 lg:mt-0 outline-none text-left p-1 border-0" v-model="contents" :editor="editor"
     />
   </div>
 </template>
@@ -32,6 +31,10 @@ const props = defineProps({
   callbackFn: {
     type: Function,
     required: false,
+  },
+  isEditable: {
+    type: Boolean,
+    required: false,
   }
 })
 
@@ -41,6 +44,7 @@ let contents = props.payload!.map(ingredient => `<p>${ingredient}</p>`).join('')
 const editor = useEditor({
   extensions: [StarterKit],
   content: contents,
+  editable: props.isEditable, // Initially set to true;
   onUpdate: () => {
     const html = editor.value?.getHTML()
     props.callbackFn!(html)
@@ -48,7 +52,7 @@ const editor = useEditor({
 })
 
 onMounted(()=> {
-  editor.value?.commands.focus()
+  editor.value?.commands.focus('end')
 })
 
 onBeforeUnmount(() => {
