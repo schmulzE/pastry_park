@@ -1,20 +1,60 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const ONE_DAY = 60 * 60 * 24 * 1000;
-const ONE_WEEK = ONE_DAY * 7;
 
 export default defineNuxtConfig({
+  
   devtools: { enabled: false },
+
   css: ["@/assets/css/main.css"],
-  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@nuxt/image',],
-  nitro: {
-    plugins: ["~/server/index.ts"],
+
+  build:{
+    transpile: ['vue-toastification']
   },
- runtimeConfig: {
-  cookieName: process.env.COOKIE_NAME || "__session",
-  cookieSecret: process.env.COOKIE_SECRET || "secret",
-  cookieExpires: parseInt(process.env.COOKIE_REMEMBER_ME_EXPIRES || ONE_DAY.toString(), 10), // 1 day
-  cookieRememberMeExpires: parseInt(process.env.COOKIE_REMEMBER_ME_EXPIRES || ONE_WEEK.toString(), 10), // 7 days
-  mongodbUri: process.env.MONGODB_URI,
- }
+
+  plugins: [
+    '~/plugins/mobile-detect.ts'
+  ],
+
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image',
+    'nuxt-server-utils',
+    '@sidebase/nuxt-auth',
+    "@nuxtjs/google-fonts",
+  ],
+
+  googleFonts: {
+    families: {
+      Roboto: true,
+      'Open Sans': [400, 700],
+      Lora: {
+        wght: [400],
+        ital: [400]
+      },
+      Mulish: {
+        wght: '200..500',
+        ital: '200..500',
+      },
+      "Source code Pro": {
+        wght: '200..500',
+        ital: '200..500',
+      }
+    }
+  },
+
+  nuxtServerUtils: {
+    mongodbUri: process.env.MONGODB_URI,
+  },
+
+  auth: {
+    baseURL: process.env.AUTH_ORIGIN,
+    provider: {
+      type: "authjs",
+    },
+  },
+
+  runtimeConfig: {
+    authSecret: process.env.AUTH_SECRET,
+  },
 
 })
