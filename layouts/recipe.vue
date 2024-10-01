@@ -1,37 +1,43 @@
 <script setup lang="ts">
-const { logout } = useAuth();
-
-const form = reactive({
-    pending: false,
-});
+const { signOut } = useAuth();
+const router = useRouter();
+let category = ref('');
 
 async function onLogoutClick() {
   try {
-    form.pending = true;
-    await logout();
-    await navigateTo("/signup");
+    await signOut();
+    router.push("/login");
   } catch (error) {
     console.error(error);
-  } finally {
-    form.pending = false;
   }
 }
+
+onMounted(() => {
+  const storedTab = localStorage.getItem('category')
+  if (storedTab !== null) {
+    category.value = storedTab.toLowerCase()
+  }
+})
+
 </script>
 <template>
-  <div class="lg:flex overflow-hidden">
-    <div class="lg:hidden">
+  <div class="lg:flex md:flex overflow-hidden md:overflow-hidden">
+    <div class="fixed top-0 right-0 w-full z-20 lg:hidden md:hidden">
       <slot name="tab"></slot>
     </div>
-    <div class="bg-gray-900 text-gray-200 w-28 hidden lg:flex text-center flex-col justify-between py-5 sticky top-0 h-screen">
+    <div class="bg-gray-900 text-gray-200 w-28 hidden md:flex lg:flex text-center flex-col justify-between py-5 sticky top-0 md:sticky md:top-0 md:h-screen h-screen">
       <div class="space-y-4">
-        <NuxtLink to="/browse" class="btn btn-ghost btn-circle">
+        <NuxtLink :to= "`/browse/${category}`" class="btn btn-ghost btn-circle">
           <i class="ri i-ri-book-3-line  text-2xl"></i>
         </NuxtLink>
         <NuxtLink to="/search" class="btn btn-ghost btn-circle">
           <i class="ri i-ri-search-line text-2xl"></i>
         </NuxtLink>
-        <NuxtLink to="/add-recipe" class="btn btn-ghost btn-circle">
-          <i class="ri i-ri-add-fill text-3xl"></i>
+        <NuxtLink to="/grocery-list" class="btn btn-ghost btn-circle">
+          <i class="ri i-ri-shopping-cart-2-fill text-3xl"></i>
+        </NuxtLink>
+        <NuxtLink to="/account" class="btn btn-ghost btn-circle">
+          <i class="i-ph-gear text-3xl"></i>
         </NuxtLink>
       </div>
       <div>
@@ -42,18 +48,21 @@ async function onLogoutClick() {
       </div>
     </div> 
     <!-- Sidebar  -->
-    <div class="bg-gray-100 min-w-3xl w-[550px] border-r-2 border-gray-400 h-screen sticky top-0 hidden lg:block">
-      <div class="border-b text-center p-10 text-3xl border-gray-400">Logo</div>
-      <div class="pt-4 pb-28 overflow-y-auto h-[530px] relative">
-        <slot name="sidebar"></slot>
-
-      </div>
+    <div class="bg-gray-100 min-w-3xl w-[550px] md:w-[500px] lg:w-[550px] border-r-2 border-gray-300 h-screen sticky top-0 hidden md:block lg:block">
+      <div class="border-b text-center p-10 text-3xl border-gray-300 italic font-lora">pastry park</div>
+      <slot name="sidebar"></slot>
     </div>
-    <div class="bg-white lg:bg-gray-100 w-full lg:h-screen h-[530px] overflow-x-hidden overflow-y-auto break-words lg:px-5">
+    <!-- main view -->
+    <div class="bg-white h-auto md:bg-gray-100 md:h-screen lg:bg-gray-100 w-full lg:h-screen overflow-x-hidden overflow-y-auto break-words lg:px-12 md:px-4">
       <slot name="main"></slot>
+    </div>
+    <!-- footer -->
+    <div class="bg-white fixed bottom-0 left-0 md:hidden w-full lg:hidden">
+      <slot name="footer"></slot>
     </div>
   </div>
 </template>
 <style>
   
 </style>
+<!-- h-[530px] -->
