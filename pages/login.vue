@@ -1,36 +1,29 @@
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 definePageMeta({
-    middleware: ["guest-only"],
+  middleware: ["guest-only"],
 });
 
-const currentUser = useAuthUser();
+const category = ref('shortcrust');
+const router = useRouter();
 
 async function onLoginSuccess() {
-    await navigateTo("/browse");
+  const targetPath = category.value ? `/browse/${category.value}` : '/browse/shortcrust';
+  await router.push(targetPath);
 }
+
+onMounted(() => {
+  const storedTab = localStorage.getItem('category');
+  if (storedTab !== null) {
+    category.value = storedTab.toLowerCase()
+  }
+})
 </script>
 
 <template>
-    <div class="bg-gray-200 flex justify-center items-center h-screen">
-        <FormLogin @success="onLoginSuccess" />
-        <!-- <div class="mb-3 flex gap-3">
-            <div>
-                <p class="text-light-100">Try this user credentials:</p>
-                <p class="text-light-100">
-                    email: <code>user@gmail.com</code>
-                    <br />
-                    password: <code>password</code>
-                </p>
-            </div>
-            <div>
-                <p class="text-light-100">Try this admin credentials:</p>
-                <p class="text-light-100">
-                    email: <code>admin@gmail.com</code>
-                    <br />
-                    password: <code>password</code>
-                </p>
-            </div>
-        </div> -->
-        <!-- <PageUser :user="currentUser" /> -->
-    </div>
+	<div class="bg-gray-200 flex justify-center items-center h-screen">
+		<FormLogin @success="onLoginSuccess" />
+	</div>
 </template>
