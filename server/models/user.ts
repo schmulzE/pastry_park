@@ -1,36 +1,33 @@
 import { Schema, model } from "mongoose";
 
+export interface UserDocument extends Document {
+  email: string;
+  name: string;
+  password: string;
+}
+
 const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    trim: true,
+    lowercase: true,
   },
+
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
+
   password: {
     type: String,
-    required: true
+    required: true,
+    length: [8, "Password must be at least 8 characters long"],
   },
-  refresh_token: String 
-},
-  {
-    virtuals:{
-      id: {
-        get(){
-          return this._id
-        }
-      }
-    },
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-  },
-);
+});
 
-export const Users = model("User", UserSchema);
-
-export async function getUserById(id: string) {
-  return await Users.findOne({ _id: id });
-}
+export const User = model<UserDocument>("User", UserSchema);
