@@ -8,8 +8,7 @@ export default defineEventHandler(async (event) => {
 	
 	try {
 		let data = await SharedLink.findOne({ _id : id});
-		// console.log('id', id);
-		// console.log('recipe',data);
+
 		return data
 	} catch (error: any) {
     if (error instanceof mongoose.Error.ValidationError) {

@@ -16,7 +16,6 @@ async function onLoginClick() {
   try {
     form.error = "";
     form.pending = true;
-    
     await signIn("credentials", form.data);
 
     emit("success");
