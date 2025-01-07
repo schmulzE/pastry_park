@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full overflow-hidden h-40 md:h-80" :class="imgClass" ref="imageContainer">
-    <img :src="imageSrc" alt="Reveal Image" class="w-full h-full object-cover" ref="image" />
+    <img :src="imageSrc" alt="Image of a pastry" class="w-full h-full object-cover" ref="image" />
     <div class="absolute top-0 left-0 w-full h-full origin-bottom bg-base-300" ref="overlay"></div>
   </div>
 </template>
