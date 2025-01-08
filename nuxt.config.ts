@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   css: ["@/assets/css/main.css"],
 
   build:{
-    transpile: ['vue-toastification']
+    transpile: ['vue-toastification', 'gsap', 'vulgar-fractions']
   },
 
   plugins: [
