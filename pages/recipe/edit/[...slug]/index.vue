@@ -3,12 +3,15 @@ type VueComponent = InstanceType<typeof component>;
 
 import { v4 as uuidv4 } from 'uuid';
 import { extend } from "@vue/shared";
+import { useToast } from 'vue-toastification';
 import { ICookingtime, IRecipe } from '~/types';
 import RecipeForm from "~/components/RecipeForm.vue";
 import RecipeSteps from "~/components/RecipeSteps.vue";
 import RecipeIngredient from "~/components/RecipeIngredient.vue";
 import { useIngredientParser } from '~/composables/useIngredientParser';
 
+
+const toast = useToast();
 const route = useRoute();
 const router = useRouter();
 const component = extend({});
@@ -93,15 +96,15 @@ const handleRecipeVideo = (content: string) => {
   }
 }
 
-const handleCategory = (content: string) => {
-  recipe.category = content
-}
+// const handleCategory = (content: string) => {
+//   recipe.category = content
+// }
 
 const submitRecipeHandler = async () => {
   try {
     $fetch(`/recipe/${recipeId}`, {method: "PUT", body: recipe})
   } catch (e) {
-    console.log(e)
+    toast("An error occured while submitting recipe. Please try again.", { toastClassName: "my-toast-class" });
   }finally{
    router.push({ path: `/browse/${category}/${recipeId}`})
   }
@@ -195,3 +198,11 @@ const changeTab = (value: VueComponent) => {
   </NuxtLayout>
   <Modal />
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>

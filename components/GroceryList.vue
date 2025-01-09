@@ -65,7 +65,6 @@ const changeIngredientHandler = (e: any) => {
     } else {
       selectedIngredients.value.splice(index, 1);
     }
-    // console.log(selectedIngredients.value)
   };
 
   const isSelected = (ingredient: { id: string; }) => {

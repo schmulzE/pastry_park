@@ -29,7 +29,7 @@ const modalActionHandler = async () => {
     emit('modal_action');
     
   } catch (error: any) {
-    console.log('An error occured', error.message)
+    toast("Error fetching recipe metadata. Please try again.", { toastClassName: "my-toast-class" });
   }finally {
     loading.value = false;
   }
@@ -40,10 +40,10 @@ const copyLinkToClipboard = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(props.link?.url!).then(
         () => {
-          toast.success('Text copied to clipboard');
+          toast('Text copied to clipboard', { toastClassName: "my-toast-class" });
         },
         (err) => {
-          toast.error('Failed to copy text');
+          toast('Failed to copy text', { toastClassName: "my-toast-class" });
         }
       );
     } else {
@@ -54,7 +54,7 @@ const copyLinkToClipboard = () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
-      toast.success('Text copied to clipboard');
+      toast('Text copied to clipboard', { toastClassName: "my-toast-class" });
     }
   } 
 
@@ -96,3 +96,11 @@ const closeModalAction = () => {
     </div>
   </div>
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>

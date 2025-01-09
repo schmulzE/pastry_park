@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useToast } from "vue-toastification";
+
 const { signOut } = useAuth();
+const toast = useToast();
 let category = ref('');
 
 const form = reactive({
@@ -12,7 +15,7 @@ async function onLogoutClick() {
     await signOut();
     await navigateTo("/signup");
   } catch (error) {
-    console.error(error);
+    toast("Failed to log out. Please try again.", { toastClassName: "my-toast-class" });
   } finally {
     form.pending = false;
   }
@@ -61,6 +64,11 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
 <style>
-  
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
 </style>

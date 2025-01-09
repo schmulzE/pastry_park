@@ -59,7 +59,6 @@ const openGroups = ref<Record<string, boolean>>({});
 const props = defineProps<{ groceryList: GroceryListDocument }>();
 const emit = defineEmits(['toggle-completed', 'edit-grocery-item', 'change-category', 'delete-grocery-item']);
 
-// console.log('groceryList...', props.groceryList);
 // Initialize openGroups with all groups closed;
 props.groceryList.items.forEach((item: GroceryItem) => {
   if (!openGroups.value[item.group!]) {

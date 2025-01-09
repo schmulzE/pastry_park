@@ -81,8 +81,7 @@ const copyGroceriesToClipboard = () => {
         toast.success('Groceries copied to clipboard');
       },
       (err) => {
-        console.error('Failed to copy text: ', err);
-        toast.error('Failed to copy groceries');
+        toast.error('Failed to copy text. Please try again');
       }
     );
   } else {
@@ -95,7 +94,6 @@ const copyGroceriesToClipboard = () => {
       document.execCommand('copy');
       toast.success('Groceries copied to clipboard');
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err);
       toast.error('Failed to copy groceries');
     }
     document.body.removeChild(textArea);
@@ -181,7 +179,7 @@ const deleteGroceryItemsByRecipeId = async (recipeId: Types.ObjectId) => {
     // If successful, the optimistic update remains
   } catch (error) {
     console.error('Error deleting grocery items:', error);
-    // Optionally, show an error message to the user
+
   }
 };
 
@@ -199,8 +197,7 @@ const deleteCompletedGroceryItem = async() => {
 
     // If successful, the optimistic update remains
     } catch (error) {
-      console.error('Error deleting grocery items:', error);
-      // Optionally, show an error message to the user
+      console.error('Error deleting completed grocery items:', error);
     }
 }
 
@@ -220,7 +217,6 @@ const deleteGroceryItemById = async (itemId: string) => {
     // If successful, the optimistic update remains
   } catch (error) {
     console.error('Error deleting grocery item:', error);
-    // Optionally, show an error message to the user
   }
 };
 
@@ -306,13 +302,12 @@ const addNewGroceryItem = async () => {
   };
   
   try {
-    const newGroceryListItem = await addRecipeIngredientsToGroceryList(ingredient);
-    console.log('brand new...', newGroceryListItem);
+    await addRecipeIngredientsToGroceryList(ingredient);
     // Optimistically update the UI;
     groceryList.value?.items.push(newItem);
     newGroceryItem.value = '';
   } catch (error) {
-    console.error('Error adding new grocery item:', error);
+    toast('Error adding new grocery item', { toastClassName: "my-toast-class" });
   }
 };
 
@@ -450,3 +445,11 @@ onMounted(() => {
    </template>
   </NuxtLayout>
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>

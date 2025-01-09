@@ -4,7 +4,9 @@ import { IRecipe } from '~/types';
 import { saveAs } from 'file-saver';
 import useModalStore from '~/stores/modal';
 import EditProfile from '~/components/EditProfile.vue';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const route = useRoute();
 const { data } = useAuth();
 const store = useModalStore();
@@ -66,8 +68,7 @@ const exportRecipes = async () => {
 
     isExporting.value = false;
   } catch (error) {
-    // console.error('Error exporting recipes:', error);
-    exportError.value = 'An error occurred while exporting recipes. Please try again.';
+    toast('An error occurred while exporting recipes. Please try again.', { toastClassName: "my-toast-class" });
     isExporting.value = false;
   }
 };
@@ -131,3 +132,11 @@ onMounted(() => {
    </template>
   </NuxtLayout>
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>

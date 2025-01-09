@@ -6,13 +6,14 @@ definePageMeta({
 
 import { v4 as uuidv4 } from 'uuid';
 import { extend } from "@vue/shared";
+import { useToast } from 'vue-toastification';
 import RecipeForm from "~/components/RecipeForm.vue";
 import RecipeSteps from "~/components/RecipeSteps.vue";
 import RecipeIngredient from "~/components/RecipeIngredient.vue";
 import { ICookingtime, IRecipe, IRecipeIngredient } from "~/types";
 import { useIngredientParser } from '~/composables/useIngredientParser';
 
-
+const toast = useToast();
 const route = useRoute();
 const router = useRouter();
 const component = extend({});
@@ -97,9 +98,8 @@ const submitRecipeHandler = async () => {
     const res = await	$fetch("/recipe", {	method: "POST", body: recipe })
     createdRecipe.value = (res as any).recipe;
   } catch (e) {
-    console.log(e)
+    toast("Error submitting recipe. Please try again.", { toastClassName: "my-toast-class" });
   }finally{
-    console.log('created recipe', createdRecipe.value)
     let recipeName = createdRecipe.value?.title.replaceAll(' ', '-').toLowerCase()
     router.push({ path: `/browse/${route.params.category}/${recipeName}/${createdRecipe.value?._id}`})
   }
@@ -130,8 +130,8 @@ const extractRecipeByUrl = async (url : string) => {
     });
     Object.assign(recipe, data.recipe)
     recipeIngredients.value = parseIngredients(data.recipe.ingredients as unknown as string[]);
-  } catch (error: any) {
-    console.error('Error fetching recipe metadata:', error.message);
+  } catch (error) {
+    toast("Error fetching recipe metadata. Please try again.", { toastClassName: "my-toast-class" });
   }
 }
 const extractRecipeFromText = async(text : string) => {
@@ -144,7 +144,7 @@ const extractRecipeFromText = async(text : string) => {
     Object.assign(recipe, data.recipe)
     recipeIngredients.value = parseIngredients(data.recipe.ingredients as unknown as string[]);
   } catch (error: any) {
-    console.error('Error retrieving recipe from text:', error.message);
+    toast("Error retrieving recipe from text. Pllease try again", { toastClassName: "my-toast-class" });
   }
 }
 
@@ -248,3 +248,11 @@ const changeTab = (value: VueComponent) => {
     </template>
   </NuxtLayout>
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>

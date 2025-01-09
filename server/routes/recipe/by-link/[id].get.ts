@@ -3,7 +3,6 @@ import { Recipe } from '~/server/models/recipe';  // Adjust this import based on
 export default defineEventHandler(async (event) => {
   const linkId = event.context.params?.id;
 
-  // console.log('id',linkId);
 
   if (!linkId) {
     throw createError({
@@ -25,7 +24,6 @@ export default defineEventHandler(async (event) => {
     return recipe;
 
   } catch (error) {
-    console.error('Error fetching recipe:', error)
     throw createError({
       statusCode: 500,
       message: 'Error fetching recipe'

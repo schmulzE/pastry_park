@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
       return await deleteCompletedItems();
     }
   } catch (error) {
-    console.error('Error deleting grocery item(s):', error);
     return createError({
       statusCode: 500,
       statusMessage: 'Error deleting grocery item(s)',

@@ -38,26 +38,3 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 });
-
-
-
-	// // Create an object with the fields to update
-		//  const updateFields = Object.keys(updates).reduce((acc, key) => {
-    //   acc[`items.$.${key}` as keyof typeof acc] = updates[key as keyof GroceryItem]
-    //   return acc
-    // }, {} as Record<string, unknown>)
-
-		// console.log(updateFields)
-
-		// const updatedList = await GroceryList.findOneAndUpdate(
-		// 	{ 'items._id': new Types.ObjectId(itemId) },
-		// 	{ $set: updateFields },
-		// 	{ new: true, runValidators: true }
-		// )	
-
-		// if (!updatedList) {
-    //   return createError({
-    //     statusCode: 404,
-    //     message: 'Grocery list item not found',
-    //   })
-    // }

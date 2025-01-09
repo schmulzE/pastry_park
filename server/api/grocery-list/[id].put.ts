@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
       return acc
     }, {} as Record<string, unknown>)
 
-		// console.log(updateFields)
-
 		const updatedList = await GroceryList.findOneAndUpdate(
 			{ 'items._id': new Types.ObjectId(itemId) },
 			{ $set: updateFields },

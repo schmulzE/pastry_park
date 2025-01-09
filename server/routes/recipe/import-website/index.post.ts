@@ -109,7 +109,6 @@ const extractRecipeFromJsonLd = async($: cheerio.CheerioAPI, url: string) => {
 
             if (ingredientText) {
               ingredients.push(ingredientText as any);
-              // ingredients.push(ingredientText);
             }
           });
         }
@@ -159,7 +158,22 @@ const extractRecipeFromJsonLd = async($: cheerio.CheerioAPI, url: string) => {
         console.log('Recipe data not found in the flattened JSON-LD.');
       }
     } catch (err) {
-      console.error('Error flattening JSON-LD data:', err);
+      if(err instanceof Error){
+        throw new JsonLdError('Error flattening JSON-LD data', {
+          cause: err,
+          status: 500,
+          code: 'JSON_LD_FLATTEN_ERROR',
+          // Include relevant context
+          details: {
+            operation: 'flattenJsonLd',
+            timestamp: new Date().toISOString()
+          }
+        })
+      }else {
+        throw new JsonLdError('Unknown error occurred', {
+          details: { operation: 'flattenJsonLd', rawError: err }
+        });
+      }
     }
   }
 
@@ -222,7 +236,22 @@ const extractRecipeFromWebsites = async($: cheerio.CheerioAPI, url: string) => {
     return result;
 
   } catch (error) {
-    console.log(error)
+    if(error instanceof Error){
+      throw new JsonLdError('Error flattening JSON-LD data', {
+        cause: error,
+        status: 500,
+        code: 'JSON_LD_FLATTEN_ERROR',
+        // Include relevant context
+        details: {
+          operation: 'flattenJsonLd',
+          timestamp: new Date().toISOString()
+        }
+      })
+    }else {
+      throw new JsonLdError('Unknown error occurred', {
+        details: { operation: 'flattenJsonLd', rawError: error }
+      });
+    }
   }
 
 }
@@ -247,7 +276,6 @@ function scoreInstructionNode(text: any) {
   const instructionalWords = ['sprinkle', 'mix', 'heat', 'bake', 'cook', 'stir', 'chop', 'dice', 'saute', 'simmer', 'boil', 'fry', 'grill', 'roast', 'broil', 'blend', 'knead', 'whisk', 'fold', 'beat', 'cream', 'melt', 'pour', 'spread', 'drizzle', 'season', 'garnish'];
   if (instructionalWords.some(word => text.includes(word))) score++;
 
-  // console.log('instruction score: ' + score);
   return score;
 }
 
@@ -272,7 +300,6 @@ function extractInstructions($: cheerio.CheerioAPI, ...headingValues: string[]) 
   const headingNode = getHeadingNode(headingValues);
 
   if (!headingNode) {
-    console.log(`Heading tag containing ${headingValues.join(', ')} not found.`);
     return [];
   }
 
@@ -296,7 +323,7 @@ function extractInstructions($: cheerio.CheerioAPI, ...headingValues: string[]) 
   const ulElements = getAllUlElements(siblingNodes);
 
   if (ulElements.length === 0) {
-    console.log('No <ul> elements found.');
+    // console.log('No <ul> elements found.');
     return [];
   }
 
