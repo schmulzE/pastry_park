@@ -78,10 +78,10 @@ const copyGroceriesToClipboard = () => {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(ingredientsString!).then(
       () => {
-        toast.success('Groceries copied to clipboard');
+        toast('Groceries copied to clipboard', { toastClassName: "my-toast-class" });
       },
       (err) => {
-        toast.error('Failed to copy text. Please try again');
+        toast('Failed to copy text. Please try again', { toastClassName: "my-toast-class" });
       }
     );
   } else {
@@ -92,9 +92,9 @@ const copyGroceriesToClipboard = () => {
     textArea.select();
     try {
       document.execCommand('copy');
-      toast.success('Groceries copied to clipboard');
+      toast('Groceries copied to clipboard', { toastClassName: "my-toast-class" });
     } catch (err) {
-      toast.error('Failed to copy groceries');
+      toast('Failed to copy groceries', { toastClassName: "my-toast-class" });
     }
     document.body.removeChild(textArea);
   }
