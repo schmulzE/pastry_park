@@ -1,34 +1,49 @@
 <script lang="ts" setup>
-const emit = defineEmits(["success"]);
+import { useToast } from 'vue-toastification';
 
+const emit = defineEmits(["success"]);
 const { signIn } = useAuth();
+const toast = useToast();
 
 const form = reactive({
   data: {
     name: "",
     password: "",
   },
-  error: "",
   pending: false,
 });
 
-async function onLoginClick() {
+async function onLogin() {
   try {
-    form.error = "";
     form.pending = true;
-    await signIn("credentials", form.data);
+    const result = await signIn('credentials', {
+      name: form.data.name,
+      password: form.data.password,
+      redirect: false // Important: prevent default redirect to handle errors
+    })
+
+    if (result?.error) {
+      // Handle specific error cases
+      if (result.error === 'CredentialsSignin') {
+        toast("Invalid mail or password", { toastClassName: "my-toast-class" });
+      } else {
+        toast("Login failed. Please try again", { toastClassName: "my-toast-class" });
+      }
+      return
+    }
 
     emit("success");
-  } catch (error: any) {
-    if (error.data.message) form.error = error.data.message;
-  } finally {
-    form.pending = false;
+  } catch (error) {
+    toast("An unexpected error occured", { toastClassName: "my-toast-class" });
+  }finally {
+    form.pending = false
   }
 }
+
 </script>
 
 <template>
-  <form class="space-y-4 md:space-y-6 bg-white shadow-md w-full mx-4 md:mx-0 lg:mx-0 md:w-1/4 lg:w-1/4 p-4 rounded-md h-[500px]" @submit.prevent="onLoginClick">
+  <form class="space-y-4 md:space-y-6 bg-white shadow-md w-full mx-4 md:mx-0 lg:mx-0 md:w-1/4 lg:w-1/4 p-4 rounded-md h-[500px]" @submit.prevent="onLogin">
     <div class="flex justify-center items-center text-4xl font-lora italic">pastry park</div>
     <div>
       <label
@@ -81,3 +96,11 @@ async function onLoginClick() {
     </p>
   </form>
 </template>
+
+<style>
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
+</style>
