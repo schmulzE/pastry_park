@@ -1,14 +1,21 @@
 <script setup lang="ts">
+import { useToast } from 'vue-toastification';
+
 const { signOut } = useAuth();
 const router = useRouter();
 let category = ref('');
+const toast = useToast();
 
 async function onLogoutClick() {
   try {
-    await signOut();
-    router.push("/login");
+    await signOut({
+      callbackUrl: '/login',
+      redirect: true
+    })
   } catch (error) {
-    console.error(error);
+    toast("Failed to log out. Please try again.", { toastClassName: "my-toast-class" });
+  }finally {
+    await router.push("/login")
   }
 }
 
@@ -63,6 +70,9 @@ onMounted(() => {
   </div>
 </template>
 <style>
-  
+/* When setting CSS, remember that priority increases with specificity, so don't forget to select the existing classes as well */
+.Vue-Toastification__toast--default.my-toast-class {
+  background-color: #a67c00;
+}
+
 </style>
-<!-- h-[530px] -->
