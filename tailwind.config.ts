@@ -12,7 +12,7 @@ module.exports = {
   plugins: [require('daisyui'),  
   iconsPlugin({
     // Select the icon collections you want to use
-    collections: getIconCollections(["mdi", "uil", "ph", "ri", "prime"]),
+    collections: getIconCollections(["mdi", "ph", "ri", "prime"]),
   }),
 ],
   daisyui: {
