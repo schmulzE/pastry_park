@@ -878,10 +878,31 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@iconify-json/mdi@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/mdi/-/mdi-1.2.2.tgz#757d5780470c9e539dca9dd97b94f0bb4c8dbfb8"
+  integrity sha512-84aznJXzfGdbOXGe8xB7E5uNAb7Yo5IABwTgq2X3kczb819qZeS9eL31bTVn7wJdCLK5ieaoUc2GTS3QYIkJ6g==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/ph@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/ph/-/ph-1.2.2.tgz#eac734e80f4639df6ade990690a825540b4259c4"
+  integrity sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/prime@^1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@iconify-json/prime/-/prime-1.1.6.tgz#f269c7cdf334c289e3dfe0ff0db9c3ae1e686779"
   integrity sha512-L3YGVBuvYRu9qc0buOXRUl1IyXG0wvN7qx6WIx0ivfSQvb0mS0N1pOvCtNpPdCm33swR1UaU9B9fYtna5WDSmg==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/ri@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@iconify-json/ri/-/ri-1.2.5.tgz#bd7d607225cc69b42928df3a55d4069ad8b7aaea"
+  integrity sha512-kWGimOXMZrlYusjBKKXYOWcKhbOHusFsmrmRGmjS7rH0BpML5A9/fy8KHZqFOwZfC4M6amObQYbh8BqO5cMC3w==
   dependencies:
     "@iconify/types" "*"
 
@@ -891,14 +912,6 @@
   integrity sha512-Aab6SqkORaTJ1W+ooufn6C8BsBitrn3uk8iRQLPA6pjhyvQAhkKCGMctyXIL5ZjrycnoFVsZ4mx7KnwEMra8qg==
   dependencies:
     "@iconify/types" "*"
-
-"@iconify/json@^2.2.127":
-  version "2.2.127"
-  resolved "https://registry.yarnpkg.com/@iconify/json/-/json-2.2.127.tgz#240b38f63e0f7521c828e19bf225ca10cdfac0e4"
-  integrity sha512-5Y3aIrpENV/nMWxXVC5AdmnOPJAor4tN32fw05qscGXuPAO7itAuZ1vskqmBkVv0d4vflDM0yQ9Ssz1JlImGeA==
-  dependencies:
-    "@iconify/types" "*"
-    pathe "^1.1.0"
 
 "@iconify/types@*", "@iconify/types@^2.0.0":
   version "2.0.0"
@@ -2165,9 +2178,9 @@
     "@types/node" "*"
 
 "@types/bcryptjs@^2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.4.tgz#cd3c4c007f600f1d21db09c9bd4ced8b49d04670"
-  integrity sha512-9wlJI7k5gRyJEC4yrV7DubzNQFTPiykYxUA6lBtsk5NlOfW9oWLJ1HdIA4YtE+6C3i3mTpDQQEosJ2rVZfBWnw==
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.6.tgz#2b92e3c2121c66eba3901e64faf8bb922ec291fa"
+  integrity sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==
 
 "@types/estree@*", "@types/estree@^1.0.0":
   version "1.0.2"
@@ -2796,11 +2809,6 @@ bcrypt@^5.1.1:
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.11"
     node-addon-api "^5.0.0"
-
-bcryptjs@^2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
-  integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
 
 big-integer@^1.6.44:
   version "1.6.51"
