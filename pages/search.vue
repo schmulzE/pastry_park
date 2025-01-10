@@ -79,7 +79,7 @@ onMounted(() => {
         <button class="btn btn-sm rounded-none btn-neutral" @click="getAllRecipes">all</button>
       </div>
       <div class="overflow-y-auto h-[450px] pb-8">
-        <Recipe v-for="recipe in recipes" :recipe="recipe" @display-recipe="displayRecipe"/>
+        <RecipeCard v-for="recipe in recipes" :recipe="recipe" @display-recipe="displayRecipe"/>
       </div>
     </template>
     <template #main>
