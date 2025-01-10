@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import JSZip from 'jszip';
+// import JSZip from 'jszip';
+const JSZip = (await import('jszip')).default
 import { IRecipe } from '~/types';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 import useModalStore from '~/stores/modal';
 import EditProfile from '~/components/EditProfile.vue';
 import { useToast } from 'vue-toastification';
+const { saveAs } = await import('file-saver')
 
 const toast = useToast();
 const route = useRoute();

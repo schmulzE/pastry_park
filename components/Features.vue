@@ -8,8 +8,8 @@
     </div>
     <div class="rounded-md shadow-[0_2px_4px_0_rgba(0,0,0,0.50)]">
       <video ref="videoElement" autoplay loop muted playsinline class="w-full h-full rounded-md">
-          <source src="/videos/export-recipe-video.mp4" type="video/mp4">
-          Your browser does not support the video tag.
+        <source src="https://res.cloudinary.com/dmjdjqpyp/video/upload/v1736523044/export-recipe-video_uk0ejc.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
     </div>
   </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="rounded-md shadow-[0_2px_4px_0_rgba(0,0,0,0.50)]">
       <video ref="videoElement" autoplay loop muted playsinline class="w-full h-full rounded-md">
-          <source src="/videos/organize-recipe-video.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/dmjdjqpyp/video/upload/v1736522883/organize-recipe-video_hdapql.mp4" type="video/mp4">
           Your browser does not support the video tag.
       </video>
     </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="rounded-md shadow-[0_2px_4px_0_rgba(0,0,0,0.50)]">
       <video ref="videoElement" autoplay loop muted playsinline class="rounded-md w-full h-full">
-          <source src="/videos/search-recipe-video.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/dmjdjqpyp/video/upload/v1736522788/search-recipe-video_t4od9x.mp4" type="video/mp4">
           Your browser does not support the video tag.
       </video>
     </div>

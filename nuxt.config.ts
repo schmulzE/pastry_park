@@ -1,12 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+
+  nitro: {
+    preset: 'netlify',
+    compressPublicAssets: true
+  },
+
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+      cssCodeSplit: true
+    },
+  },
   
   devtools: { enabled: false },
-
+  
   css: ["@/assets/css/main.css"],
-
+  
   build:{
+    analyze: true,
     transpile: ['vue-toastification', 'gsap', 'vulgar-fractions']
   },
 
@@ -17,7 +30,6 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
-    '@nuxt/image',
     'nuxt-server-utils',
     '@sidebase/nuxt-auth',
     "@nuxtjs/google-fonts",
@@ -25,8 +37,6 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Roboto: true,
-      'Open Sans': [400, 700],
       Lora: {
         wght: [400],
         ital: [400]
@@ -39,7 +49,9 @@ export default defineNuxtConfig({
         wght: '200..500',
         ital: '200..500',
       }
-    }
+    },
+    display: 'swap', // Improve perceived performance
+    subsets: ['latin'], // Specify subsets
   },
 
   nuxtServerUtils: {

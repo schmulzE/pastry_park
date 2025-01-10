@@ -15,9 +15,10 @@
 </template>
 
 <script setup lang="ts">
-import {useEditor, EditorContent} from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-
+// import {useEditor, EditorContent} from '@tiptap/vue-3'
+// import StarterKit from '@tiptap/starter-kit'
+const  {useEditor, EditorContent} = defineAsyncComponent(() => import('@tiptap/vue-3'))
+const StarterKit = defineAsyncComponent(() => import('@tiptap/starter-kit'))
 
 const props = defineProps({
   payload: {

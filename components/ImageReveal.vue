@@ -7,8 +7,11 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+const gsap = await import('gsap').then(m => m.gsap)
+
+// import gsap from 'gsap'
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
+const { ScrollTrigger } = await import('gsap/ScrollTrigger')
 
 gsap.registerPlugin(ScrollTrigger)
 
