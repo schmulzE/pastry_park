@@ -59,7 +59,9 @@ export default defineNuxtConfig({
   },
 
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
+    baseURL:  process.env.NODE_ENV === 'production' 
+    ? 'https://pastry-park.netlify.app' 
+    : process.env.AUTH_ORIGIN,
     provider: {
       type: "authjs",
     },
