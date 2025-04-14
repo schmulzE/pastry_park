@@ -23,7 +23,7 @@ const toggleMenu = () => {
           ><NuxtLink to="/login">Sign in</NuxtLink></li>
           <li
           class="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-black after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-          ><NuxtLink to="/register">Sign up</NuxtLink></li>
+          ><NuxtLink to="/signup">Sign up</NuxtLink></li>
         </ul>
         <button class="lg:hidden md:hidden" @click="toggleMenu">
           <i class="ri i-ri-menu-line text-3xl"></i>
@@ -38,7 +38,7 @@ const toggleMenu = () => {
         <div class="mb-16">
           <a class="btn btn-ghost text-4xl font-lora italic lowercase">pastry park</a>
         </div>
-        <ul class="space-y-8 font-mulish uppercase text-center w-full">
+        <ul class="space-y-8 font-mulish uppercase flex flex-col items-center justify-center w-full">
           <li class="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
           >
             <NuxtLink>Contact</NuxtLink>
@@ -51,13 +51,13 @@ const toggleMenu = () => {
           <li 
           class="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
           >
-            <NuxtLink to="/register">Sign up</NuxtLink>
+            <NuxtLink to="/signup">Sign up</NuxtLink>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="hidden md:block h-full w-[1px] bg-gray-800 absolute top-0 md:right-4 lg:right-[50px]"></div>
+  <div class="hidden md:block h-full w-[1px] bg-gray-800 absolute top-0 md:right-4 lg:right-[127px]"></div>
 </template>
 
 
