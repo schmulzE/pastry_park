@@ -4,7 +4,7 @@
 
 <template>
   <div class="px-4 text-center pt-4 md:pt-0 pb-16 bg-base-300 border-base-300 relative md:pb-0 md:max-w-5xl md:mx-auto lg:max-w-7xl">
-    <div class="space-y-8 md:border-x md:border-gray-800 md:py-16 md:px-8">
+    <div class="space-y-8 md:py-16 md:px-8">
       <FadeInAnimation>
         <h1 class="font-lora text-3xl font-semibold md:text-left md:w-96 md:pl-4 md:pb-8 lg:mx-32 lg:text-4xl">The home for all your recipes</h1>
       </FadeInAnimation>

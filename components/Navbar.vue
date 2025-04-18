@@ -7,7 +7,7 @@ const toggleMenu = () => {
 
 <template>
   <nav class="relative overflow-hidden">
-    <div class="navbar bg-base-300 px-4 lg:px-12">
+    <div class="navbar bg-base-300 px-4 md:px-16 lg:px-32">
       <div class="flex-1 md:flex-none">
         <NuxtLink to="/" class="text-2xl font-lora italic lowercase px-0">pastry park</NuxtLink>
       </div>
@@ -57,7 +57,6 @@ const toggleMenu = () => {
       </div>
     </div>
   </nav>
-  <div class="hidden md:block h-full w-[1px] bg-gray-800 absolute top-0 md:right-4 lg:right-[47px]"></div>
 </template>
 
 
