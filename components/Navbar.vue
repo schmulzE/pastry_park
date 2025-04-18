@@ -57,7 +57,7 @@ const toggleMenu = () => {
       </div>
     </div>
   </nav>
-  <div class="hidden md:block h-full w-[1px] bg-gray-800 absolute top-0 md:right-4 lg:right-[127px]"></div>
+  <div class="hidden md:block h-full w-[1px] bg-gray-800 absolute top-0 md:right-4 lg:right-[47px]"></div>
 </template>
 
 
