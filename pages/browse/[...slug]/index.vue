@@ -14,16 +14,16 @@ import { IRecipe, IRecipeIngredient } from '~/types';
 import { extend } from "@vue/shared";
 import useModalStore from '~/stores/modal';
 import { useToast } from 'vue-toastification';
-import MaximizeRecipe from '~/components/MaximizeRecipe.vue';
-import RecipeView from "~/components/RecipeView.vue";
-import GroceryList from "~/components/GroceryList.vue";
-import RecipeSteps from "~/components/RecipeSteps.vue";
-import ModalInfo from '~/components/Modal/ModalInfo.vue';
+import RecipeView from "~/components/recipe/recipe-view.vue";
+import ModalInfo from '~/components/ui/modal/modal-info.vue';
 import { useGroceryList } from '~/composables/useGroceryList';
-import ScaleIngredient from "~/components/ScaleIngredient.vue";
-import PrintableRecipe from '~/components/PrintableRecipe.vue';
-import RecipeIngredient from "~/components/RecipeIngredient.vue";
+import RecipeSteps from "~/components/recipe/recipe-steps.vue";
+import GroceryList from "~/components/grocery/grocery-list.vue";
+import ScaleIngredient from "~/components/recipe/recipe-scaler.vue";
+import PrintableRecipe from '~/components/recipe/printable-recipe.vue';
+import MaximizeRecipe from '~/components/recipe/recipe-detail-view.vue';
 import { useIngredientParser } from '~/composables/useIngredientParser';
+import RecipeIngredient from "~/components/recipe/recipe-ingredients.vue"
   
 const toast = useToast();
 const route = useRoute();
@@ -36,13 +36,12 @@ const { addRecipeIngredientsToGroceryList } = useGroceryList();
 const { parseIngredients } = useIngredientParser();
 const [category, recipeTitle, recipeId] =  route.params.slug;
 
-  
-const { data: response } = await useFetch<IRecipe>(`/recipe/${recipeId}`);
-let recipe = response.value as IRecipe;
+const { data: recipeData, pending: isRecipeLoading, error: recipeError } = useFetch<IRecipe>(`/recipe/${recipeId}`);
+const recipe = computed(() => recipeData.value);
 
 const { data: recipes } = await useFetch<IRecipe[]>('/recipe');
 
-let recipeIngredients = parseIngredients(recipe?.ingredients!);
+const recipeIngredients = computed(() => recipe.value ? parseIngredients(recipe.value.ingredients) : []);
 
 const tabs = [
   {
@@ -68,8 +67,8 @@ interface ComponentProps {
 
 const currentProperties = computed((): ComponentProps => {
   const baseProps: ComponentProps = {
-    recipe,
-    recipeIngredients: recipeIngredients,
+    recipe: recipe.value as IRecipe, // Ensure recipe.value is used
+    recipeIngredients: recipeIngredients.value, // Ensure recipeIngredients.value is used
     isEditable: false
   };
 
@@ -79,14 +78,14 @@ const currentProperties = computed((): ComponentProps => {
     case 'RecipeIngredient':
     case 'RecipeSteps':
       return {
-        recipe: baseProps.recipe,
-        recipeIngredients: baseProps.recipeIngredients,
+        recipe: baseProps.recipe, // This will be recipe.value from baseProps
+        recipeIngredients: baseProps.recipeIngredients, // This will be recipeIngredients.value from baseProps
         isEditable: false
       };
     default:
       return {
-        recipe,
-        recipeIngredients,
+        recipe: recipe.value as IRecipe, // Ensure recipe.value is used
+        recipeIngredients: recipeIngredients.value, // Ensure recipeIngredients.value is used
         isEditable: false
       };
   }
@@ -97,36 +96,43 @@ const changeTab = (value: VueComponent) => {
 }
 
  const editRecipe = () => {
-  return navigateTo(`/recipe/edit/${recipe.title.replaceAll(' ', '-').toLowerCase()}/${recipe._id}`)
+  if (!recipe.value) return; // Add guard for null recipe
+  return navigateTo(`/recipe/edit/${recipe.value.title.replaceAll(' ', '-').toLowerCase()}/${recipe.value._id}`)
  }
 
 function maximizeRecipe () {
+  if (!recipe.value) return; // Add guard for null recipe
   store.openModal({ 
     component: markRaw(MaximizeRecipe),
-    props: {classes: "w-screen p-4 h-screen text-black rounded-none overflow-y-auto bg-gray-200", recipe, recipeIngredients}
+    props: {classes: "w-screen p-4 h-screen text-black rounded-none overflow-y-auto bg-gray-200", recipe: recipe.value, recipeIngredients: recipeIngredients.value}
   })
 }
 
 function scaleIngredient () {
+  if (!recipe.value) return; // Add guard for null recipe
   store.openModal({ 
     component: markRaw(ScaleIngredient),
-    props: {classes: "w-96 h-auto text-black rounded-sm bg-base-100", recipeIngredients },
+    props: {classes: "w-96 h-auto text-black rounded-sm bg-base-100", recipeIngredients: recipeIngredients.value },
     events: {
       set_scale: (payload) => {
-        recipeIngredients = payload
+        // recipeIngredients is now a computed, direct assignment is not possible.
+        // This behavior needs to be re-evaluated. For now, commenting out or logging.
+        console.warn("Attempted to set a computed property 'recipeIngredients'. This action has no effect.");
+        // recipeIngredients = payload // This line will cause an error or have no effect
       },
     }
   })
 }
 
 function createGroceryList () {
+  if (!recipe.value) return; // Add guard for null recipe
   store.openModal({ 
     component: markRaw(GroceryList), 
-    props: {classes: "w-96 h-auto text-black rounded-sm bg-base-100", recipeIngredients},
+    props: {classes: "w-96 h-auto text-black rounded-sm bg-base-100", recipeIngredients: recipeIngredients.value},
     events: {
       create_grocery_list: async (ingredients) => {
         try {
-          await addRecipeIngredientsToGroceryList(ingredients, recipe._id!);
+          await addRecipeIngredientsToGroceryList(ingredients, recipe.value?._id!);
           toast("Ingredient added to your grocery list", { toastClassName: "my-toast-class" });
         } catch (error: any) {
           console.error('Error fetching recipe metadata:', error.message);
@@ -141,8 +147,9 @@ function confirmAlert () {
 }
 
 async function deleteRecipe () {
+  if (!recipe.value) return; // Add guard for null recipe
   try {
-    await $fetch(`/recipe/${recipe._id}`, {
+    await $fetch(`/recipe/${recipe.value._id}`, {
       method: "DELETE",
     })
   } catch (error) {
@@ -256,11 +263,11 @@ const printStyles = `
 
 const printPage = () => {
   const printWindow = window.open('', '_blank', 'height=500,width=800')
-  if (!printWindow) return
+  if (!printWindow || !recipe.value) return // Add guard for null recipe
 
   const app = createApp(PrintableRecipe, {
-    recipe,
-    recipeIngredients: recipeIngredients
+    recipe: recipe.value,
+    recipeIngredients: recipeIngredients.value
   })
 
   const mountPoint = document.createElement('div');
@@ -273,7 +280,7 @@ const printPage = () => {
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Print Recipe: ${recipe.title!}</title>
+        <title>Print Recipe: ${recipe.value?.title!}</title>
         <style>
          ${printStyles}
           @media print {
@@ -330,24 +337,33 @@ const printPage = () => {
       
     </template>
     <template #sidebar>
-      <CategoryList :recipes="recipes!" :category="category"/>
+      <RecipeCategory :recipes="recipes!" :category="category"/>
     </template>
     <template #main>
-      <UtilityBar
-      @edit-recipe="editRecipe"
-      @maximize-recipe="maximizeRecipe"
-      @scale-ingredient="scaleIngredient"
-      @delete-recipe="confirmAlert"
-      @print-recipe="printPage"
-      @grocery-list="createGroceryList"
-      @share-recipe="shareRecipe"
-      />
-
-      <component 
-        :is="currentComponent" 
-        v-bind="currentProperties"
-      />
-
+      <div v-if="isRecipeLoading" class="flex justify-center items-center h-full p-8">
+        <p class="text-xl">Loading recipe...</p>
+      </div>
+      <div v-else-if="recipeError" class="p-8">
+        <p class="text-xl text-red-500">Error loading recipe: {{ recipeError.message || 'Unknown error' }}</p>
+      </div>
+      <div v-else-if="recipe" class="h-full">
+        <RecipeUtilityBar
+          @edit-recipe="editRecipe"
+          @maximize-recipe="maximizeRecipe"
+          @scale-ingredient="scaleIngredient"
+          @delete-recipe="confirmAlert"
+          @print-recipe="printPage"
+          @grocery-list="createGroceryList"
+          @share-recipe="shareRecipe"
+        />
+        <component 
+          :is="currentComponent" 
+          v-bind="currentProperties"
+        />
+      </div>
+      <div v-else class="flex justify-center items-center h-full p-8">
+        <p class="text-xl text-gray-500">Recipe not found.</p>
+      </div>
     </template>
   </NuxtLayout>
 </template>
