@@ -1,17 +1,19 @@
 <script setup lang="ts">
 type VueComponent = InstanceType<typeof component>;
-definePageMeta({
-  middleware: "auth",
-});
-
+  
+  definePageMeta({
+    middleware: "auth",
+  });
+  
 import { v4 as uuidv4 } from 'uuid';
 import { extend } from "@vue/shared";
 import { useToast } from 'vue-toastification';
-import RecipeForm from "~/components/RecipeForm.vue";
-import RecipeSteps from "~/components/RecipeSteps.vue";
-import RecipeIngredient from "~/components/RecipeIngredient.vue";
+import RecipeView from '~/components/recipe/recipe-view.vue';
+import RecipeForm from "~/components/recipe/recipe-form.vue";
+import RecipeSteps from "~/components/recipe/recipe-steps.vue";
 import { ICookingtime, IRecipe, IRecipeIngredient } from "~/types";
 import { useIngredientParser } from '~/composables/useIngredientParser';
+import RecipeIngredient from "~/components/recipe/recipe-ingredients.vue";
 
 const toast = useToast();
 const route = useRoute();
@@ -124,10 +126,12 @@ const tabs = [
 const extractRecipeByUrl = async (url : string) => {
   try {
     // Fetch the HTML content of the recipe page
+    console.log('url', url)
     const data = await $fetch<any>('/recipe/import-website', {
       method: 'POST',
       body: { url }
     });
+    console.log('data', data.recipe)
     Object.assign(recipe, data.recipe)
     recipeIngredients.value = parseIngredients(data.recipe.ingredients as unknown as string[]);
   } catch (error) {
@@ -163,6 +167,27 @@ const resetForm = () => {
   recipe.ingredients = []
   recipe.cookingtime = []
 }
+
+const recipeFormSidebarProps = computed(() => {
+  return {
+    recipe, // The main reactive recipe object
+    handleCookingtime,
+    handleRecipeTitle,
+    handleRecipeDesc,
+    handleRecipeSource,
+    handleRecipeVideo,
+    handleRecipeCategory,
+    handleRecipeImage,
+    handleRecipeYield,
+    handleRecipeUrl,
+    handleIngredient,
+    handleRecipeSteps,
+    submitRecipeHandler,
+    resetForm,
+    extractRecipeByUrl,  // Ensure this is correctly referenced from the script's scope
+    extractRecipeFromText // Ensure this is correctly referenced from the script's scope
+  };
+});
 
 let currentComponent = shallowRef(RecipeForm)
 
@@ -231,7 +256,7 @@ const changeTab = (value: VueComponent) => {
     </template>
     <template #sidebar>
       <div class="pt-4 pb-28 lg:pb-28 overflow-y-auto md:overflow-y-hidden lg:overflow-y-auto h-[530px] md:h-full lg:h-[550px] md:pb-0 relative">
-        <component :is="RecipeForm" v-bind="currentProperties"/>
+        <component :is="RecipeForm" v-bind="recipeFormSidebarProps"/>
       </div>
     </template>
     <template #main>
