@@ -168,26 +168,26 @@ const resetForm = () => {
   recipe.cookingtime = []
 }
 
-// const recipeFormSidebarProps = computed(() => {
-//   return {
-//     recipe, // The main reactive recipe object
-//     handleCookingtime,
-//     handleRecipeTitle,
-//     handleRecipeDesc,
-//     handleRecipeSource,
-//     handleRecipeVideo,
-//     handleRecipeCategory,
-//     handleRecipeImage,
-//     handleRecipeYield,
-//     handleRecipeUrl,
-//     handleIngredient,
-//     handleRecipeSteps,
-//     submitRecipeHandler,
-//     resetForm,
-//     extractRecipeByUrl,  // Ensure this is correctly referenced from the script's scope
-//     extractRecipeFromText // Ensure this is correctly referenced from the script's scope
-//   };
-// });
+const recipeFormSidebarProps = computed(() => {
+  return {
+    recipe, // The main reactive recipe object
+    handleCookingtime,
+    handleRecipeTitle,
+    handleRecipeDesc,
+    handleRecipeSource,
+    handleRecipeVideo,
+    handleRecipeCategory,
+    handleRecipeImage,
+    handleRecipeYield,
+    handleRecipeUrl,
+    handleIngredient,
+    handleRecipeSteps,
+    submitRecipeHandler,
+    resetForm,
+    extractRecipeByUrl,  // Ensure this is correctly referenced from the script's scope
+    extractRecipeFromText // Ensure this is correctly referenced from the script's scope
+  };
+});
 
 let currentComponent = shallowRef(RecipeForm)
 
@@ -256,26 +256,7 @@ const changeTab = (value: VueComponent) => {
     </template>
     <template #sidebar>
       <div class="pt-4 pb-28 lg:pb-28 overflow-y-auto md:overflow-y-hidden lg:overflow-y-auto h-[530px] md:h-full lg:h-[550px] md:pb-0 relative">
-        <!-- <component :is="RecipeForm" v-bind="recipeFormSidebarProps"/> -->
-          <component 
-          :is="RecipeForm"
-          :recipe="recipe"
-          :handleCookingtime="handleCookingtime"
-          :handleRecipeTitle="handleRecipeTitle"
-          :handleRecipeDesc="handleRecipeDesc"
-          :handleRecipeSource="handleRecipeSource"
-          :handleRecipeVideo="handleRecipeVideo"
-          :handleRecipeCategory="handleRecipeCategory"
-          :handleRecipeImage="handleRecipeImage"
-          :handleRecipeYield="handleRecipeYield"
-          :handleRecipeUrl="handleRecipeUrl"
-          :handleIngredient="handleIngredient"
-          :handleRecipeSteps="handleRecipeSteps"
-          :submitRecipeHandler="submitRecipeHandler"
-          :resetForm="resetForm"
-          :extractRecipeByUrl="extractRecipeByUrl"
-          :extractRecipeFromText="extractRecipeFromText"
-        />
+        <component :is="RecipeForm" v-bind="recipeFormSidebarProps"/>
       </div>
     </template>
     <template #main>
