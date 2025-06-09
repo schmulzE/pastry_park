@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { v4 as uuidv4 } from 'uuid';
 import { ICookingtime } from '~~/types';
-import useModalStore from '../../stores/modal';
+import useModalStore from '~/stores/modal';
 import RecipeEditor from './recipe-rich-text-editor.vue';
 import VideoUrlModal from './recipe-video-url-modal.vue';
 import RecipeUrlInputModal from './recipe-url-input-modal.vue';

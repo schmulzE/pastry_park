@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import ImageReveal from '../ui/image-reveal.vue';
-import FadeInAnimation from '../ui/fade-in-animation.vue';
+import ImageReveal from '~/components/ui/image-reveal.vue';
+import FadeInAnimation from '~/components/ui/fade-in-animation.vue';
 
 defineProps<{
   title: string,

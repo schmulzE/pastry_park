@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Accordion from '../ui/accordion.vue';
+import Accordion from '~/components/ui/accordion.vue';
 import { GroceryListDocument } from '~/server/models/groceryList';
 
 

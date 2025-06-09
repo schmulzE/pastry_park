@@ -6,5 +6,6 @@
   publish = "dist"
 
 [functions]
-  node_bundler = "esbuild"
   included_files = ["dist/**"]
+  node_bundler = "esbuild"
+  external_node_modules = ["uuid"]
