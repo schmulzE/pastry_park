@@ -1,6 +1,4 @@
 <template>
-  <!-- <NuxtLayout > -->
-    <NuxtPage/>
-  <!-- </NuxtLayout> -->
-  <Modal />
+  <NuxtPage/>
+  <UiModal/>
 </template>

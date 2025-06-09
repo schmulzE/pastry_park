@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   currentRating: {
     type: Number,
     default: 0

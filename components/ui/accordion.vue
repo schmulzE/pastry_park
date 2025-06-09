@@ -49,9 +49,9 @@
 <script setup lang="ts">
 
 import { parseVulgars } from 'vulgar-fractions';
-import ModalInfo from '~/components/Modal/ModalInfo.vue';
-import { GroceryItem, GroceryListDocument } from '~/server/models/groceryList';
 import useModalStore from '~/stores/modal';
+import ModalInfo from '~/components/ui/modal/modal-info.vue';
+import { GroceryItem, GroceryListDocument } from '~/server/models/groceryList';
 
 
 const store = useModalStore();

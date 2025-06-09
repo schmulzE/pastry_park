@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import useModalStore from '../stores/modal';
+import useModalStore from '../../stores/modal';
 const store = useModalStore();
 defineProps<{ videoUrl: string }>()
 

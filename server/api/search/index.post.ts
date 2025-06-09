@@ -1,4 +1,5 @@
 import { getServerSession } from '#auth';
+import mongoose from 'mongoose';
 import { Recipe } from "~~/server/models/recipe";
 
 export default defineEventHandler(async(event) => {
@@ -6,11 +7,12 @@ export default defineEventHandler(async(event) => {
   const { query } = body;
   const session = await getServerSession(event as any);
 
-  if (!session || !session.user) {
+  if (!session) {
     return sendError(event, createError({ statusCode: 401, message: 'Unauthorized' }));
   }
-  
-  const userId = session!.user.id
+
+  const userId = session?.user.id;
+
   try{
     const result = await Recipe.aggregate([
       {
@@ -25,13 +27,12 @@ export default defineEventHandler(async(event) => {
           }
         }
       },
-      // {
-      //   '$match': {
-      //     'created_by': userId
-      //   }
-      // }
+      {
+        '$match': {
+          'created_by': new mongoose.Types.ObjectId(userId)
+        }
+      }
     ])
-
     return {result}
   }catch(e: any) {
     throw createError({

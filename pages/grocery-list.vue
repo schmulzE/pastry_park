@@ -11,16 +11,16 @@ import { IRecipe } from '~/types';
 import { extend } from "@vue/shared";
 import useModalStore from '~/stores/modal';
 import { useToast } from 'vue-toastification';
-import MaximizeRecipe from '~/components/MaximizeRecipe.vue';
 import { useGroceryList } from '~/composables/useGroceryList';
 import { classifyIngredient } from '~/utils/ingredientClassifier';
-import GroceryListManager from '~/components/GroceryListManager.vue';
-import GroceryLinkedRecipe from '~/components/GroceryLinkedRecipe.vue';
-import EditGroceryListItem from '~/components/EditGroceryListItem.vue';
+import MaximizeRecipe from '~/components/recipe/recipe-detail-view.vue';
 import { useIngredientParser } from '~/composables/useIngredientParser';
-import PrintableGroceryList from '~/components/PrintableGroceryList.vue';
+import GroceryListManager from '~/components/grocery/grocery-list-manager.vue';
 import { GroceryItem, GroceryListDocument } from '~/server/models/groceryList';
-import SelectGroceryItemCategory from '~/components/SelectGroceryItemCategory.vue';
+import GroceryLinkedRecipe from '~/components/grocery/grocery-linked-recipe.vue';
+import EditGroceryListItem from '~/components/grocery/edit-grocery-list-item.vue';
+import PrintableGroceryList from '~/components/grocery/printable-grocery-list.vue';
+import SelectGroceryItemCategory from '~/components/grocery/select-grocery-item-category.vue';
 
 const route = useRoute();
 const toast = useToast();
@@ -343,7 +343,7 @@ type ComponentProps = Partial<ListComponentProps & RecipesComponentProps>;
 
 const currentProperties = computed((): ComponentProps => {
   switch (currentComponent.value.__name) {
-    case 'GroceryListManager':
+    case 'grocery-list-manager':
       return {
         groceryList: groceryList.value,
         "onCopy-grocery-list": copyGroceriesToClipboard,
@@ -355,7 +355,7 @@ const currentProperties = computed((): ComponentProps => {
         "onAdd-grocery-item" : addNewGroceryItem
         
       };
-    case 'GroceryLinkedRecipe':
+    case 'grocery-linked-recipe':
       return {
         fetchedRecipes: fetchedRecipes.value,
         "onMaximize-recipe": (recipe: IRecipe) => maximizeRecipe(recipe),

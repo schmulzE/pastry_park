@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import LoginForm from '~/components/auth/login-form.vue';
 
 definePageMeta({
   middleware: ["guest-only"],
@@ -24,6 +25,6 @@ onMounted(() => {
 
 <template>
 	<div class="bg-gray-200 flex justify-center items-center h-screen">
-		<FormLogin @success="onLoginSuccess" />
+		<LoginForm @success="onLoginSuccess" />
 	</div>
 </template>

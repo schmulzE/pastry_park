@@ -7,7 +7,7 @@ import { Session, AuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NuxtAuthHandler({
-  secret: useRuntimeConfig().authSecret,
+  secret: process.env.AUTH_SECRET || useRuntimeConfig().authSecret,
 
   pages: {
     signIn: "/login",
@@ -50,6 +50,7 @@ export default NuxtAuthHandler({
 
   session: {
     strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 30, // 30 days
   },
 
   callbacks: {

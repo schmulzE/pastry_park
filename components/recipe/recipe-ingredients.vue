@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { IRecipe, IRecipeIngredient } from '~/types';
+import RecipeEditor from './recipe-rich-text-editor.vue';
 
 defineProps<{
   recipe: IRecipe;

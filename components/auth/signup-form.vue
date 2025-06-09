@@ -37,7 +37,12 @@ async function onSignupClick() {
     {{ form.error }}
   </p>
   <form class="space-y-4 md:space-y-6 bg-white shadow-md w-1/4 p-4 rounded-md h-[500px]" @submit.prevent = "onSignupClick">
-      <div class="flex justify-center items-center capitalize text-4xl">logo</div>
+      <div class="flex justify-center items-center text-3xl">
+        <div class="flex items-center mb-4 md:mb-0">
+          <i class="ph i-ph-chef-hat"></i>
+          <span class="font-light italic font-lora">pastrypark</span>
+        </div>
+      </div>
       <div>
         <label
         for="name"

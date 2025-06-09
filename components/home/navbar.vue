@@ -9,7 +9,8 @@ const toggleMenu = () => {
   <nav class="relative overflow-hidden">
     <div class="navbar bg-base-300 px-4 md:px-16 lg:px-32">
       <div class="flex-1 md:flex-none">
-        <NuxtLink to="/" class="text-2xl font-lora italic lowercase px-0">pastry park</NuxtLink>
+        <i class="i-ph-chef-hat text-4xl"></i>
+        <NuxtLink to="/" class="text-2xl font-lora italic lowercase px-0">pastrypark</NuxtLink>
       </div>
       <div class="navbar-end md:navbar-start lg:ml-12">
         <ul class="px-1 text-sm hidden md:flex md:gap-4 font-mulish">

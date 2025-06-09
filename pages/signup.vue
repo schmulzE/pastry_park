@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import SignupForm from '~/components/auth/signup-form.vue';
+
 definePageMeta({
 	middleware: ["guest-only"],
 });
@@ -11,6 +13,6 @@ async function onSignupSuccess() {
 
 <template>
 	<div class="bg-gray-200 flex justify-center items-center h-screen">
-		<FormSignup @success="onSignupSuccess" />
+		<SignupForm @success="onSignupSuccess" />
 	</div>
 </template>

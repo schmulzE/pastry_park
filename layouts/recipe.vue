@@ -56,7 +56,12 @@ onMounted(() => {
     </div> 
     <!-- Sidebar  -->
     <div class="bg-gray-100 min-w-3xl w-[550px] md:w-[500px] lg:w-[550px] border-r-2 border-gray-300 h-screen sticky top-0 hidden md:block lg:block">
-      <div class="border-b text-center p-10 text-3xl border-gray-300 italic font-lora">pastry park</div>
+      <div class="border-b text-center p-10 border-gray-300 italic font-lora">
+        <div class="flex items-center justify-center space-x-1">
+          <i class="ph i-ph-chef-hat text-4xl"></i>
+          <span class="text-3xl">pastrypark</span>
+        </div>
+      </div>
       <slot name="sidebar"></slot>
     </div>
     <!-- main view -->

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { IRecipe } from '~/types';
 import { useIngredientParser } from '~/composables/useIngredientParser';
+import RecipeDetailView from '~/components/recipe/recipe-detail-view.vue';
 
 interface SharedLink {
   _id: string;
@@ -32,6 +33,6 @@ let recipeIngredients = parseIngredients(recipe.value.ingredients);
 
 <template>
   <div>
-    <MaximizeRecipe :recipe="recipe" :recipeIngredients="recipeIngredients"/>
+    <RecipeDetailView :recipe="recipe" :recipeIngredients="recipeIngredients"/>
   </div>
 </template>

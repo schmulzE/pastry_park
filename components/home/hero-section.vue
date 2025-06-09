@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-
+import ImageReveal from '../ui/image-reveal.vue';
+import FadeInAnimation from '../ui/fade-in-animation.vue';
 </script>
 
 <template>

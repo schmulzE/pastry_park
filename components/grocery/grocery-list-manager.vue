@@ -1,8 +1,12 @@
 <script lang="ts" setup>
+import Accordion from '../ui/accordion.vue';
 import { GroceryListDocument } from '~/server/models/groceryList';
 
-const newGroceryItem = ref('');
+
 defineProps<{ groceryList?: GroceryListDocument }>();
+
+const newGroceryItem = ref('');
+
 const emit = defineEmits([
   "copy-grocery-list", 
   "print-grocery-list",

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { parseVulgars } from 'vulgar-fractions';
+import StarRating from '../ui/star-rating.vue';
 import  { convertToFraction } from '@/utils/fractionConverter';
 
 defineProps(['recipe', 'recipeIngredients'])

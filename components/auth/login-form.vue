@@ -44,7 +44,12 @@ async function onLogin() {
 
 <template>
   <form class="space-y-4 md:space-y-6 bg-white shadow-md w-full mx-4 md:mx-0 lg:mx-0 md:w-1/4 lg:w-1/4 p-4 rounded-md h-[500px]" @submit.prevent="onLogin">
-    <div class="flex justify-center items-center text-4xl font-lora italic">pastry park</div>
+    <div class="flex justify-center items-center text-3xl font-lora italic">
+       <div class="flex items-center mb-4 md:mb-0">
+          <i class="ph i-ph-chef-hat"></i>
+          <span class="font-light italic">pastrypark</span>
+        </div>
+    </div>
     <div>
       <label
         for="name"

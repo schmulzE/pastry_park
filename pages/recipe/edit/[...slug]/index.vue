@@ -5,9 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { extend } from "@vue/shared";
 import { useToast } from 'vue-toastification';
 import { ICookingtime, IRecipe } from '~/types';
-import RecipeForm from "~/components/RecipeForm.vue";
-import RecipeSteps from "~/components/RecipeSteps.vue";
-import RecipeIngredient from "~/components/RecipeIngredient.vue";
+import Modal from '~/components/ui/modal/modal.vue';
+import RecipeForm from "~/components/recipe/recipe-form.vue";
+import RecipeSteps from "~/components/recipe/recipe-steps.vue";
+import RecipeIngredient from "~/components/recipe/recipe-ingredients.vue";
 import { useIngredientParser } from '~/composables/useIngredientParser';
 
 

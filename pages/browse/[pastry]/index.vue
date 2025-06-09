@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { IRecipe } from '~/types';
+import RecipeCategory from '~/components/recipe/recipe-category.vue';
+
 definePageMeta({
   middleware: "auth",
 });
@@ -24,11 +26,11 @@ let category = route.params.pastry as string;
       </div>
     </template>
     <template #sidebar>
-    <CategoryList :recipes="recipes!" :category="category" class="hidden md:flex lg:flex" />
+    <RecipeCategory :recipes="recipes!" :category="category" class="hidden md:flex lg:flex" />
     </template>
     <template #main>
       <RecipeList :recipes="recipes!" :category="category" class="md:hidden lg:hidden"/>
-      <CategoryList :recipes="recipes!" class="hidden md:hidden lg:hidden" />
+      <RecipeCategory :recipes="recipes!" class="hidden md:hidden lg:hidden" />
     </template>
   </NuxtLayout>
 </template>

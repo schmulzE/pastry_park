@@ -144,7 +144,7 @@ const sortRecipes = (criteria: string) => {
         :class="currentTab === index && 'md:bg-gray-700 hover:text-white lg:bg-gray-700 md:text-white lg:text-white hover:bg-gray-700'"
         @click="selectTab(index, tab.pastry)"
         >
-          <NuxtLink :to="`/browse/${tab.pastry}`">{{ tab.pastry }}</NuxtLink>
+          <NuxtLink :to="`/browse/${tab.pastry}`" class="font-medium">{{ tab.pastry }}</NuxtLink>
         </li>
       </ul>
     </div>
@@ -167,7 +167,7 @@ const sortRecipes = (criteria: string) => {
             class="flex-1 w-full hover:bg-gray-300 p-2 inline-block font-sans" 
             :to="`/browse/${pastry.category}/${pastry.title.replaceAll(' ', '-').toLowerCase()}/${pastry.id}`"
             >
-              <span class="capitalize">{{ pastry.title }}</span>
+              <span class="capitalize font-medium">{{ pastry.title }}</span>
             </NuxtLink> 
           </li>
         </ul>

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { v4 as uuidv4 } from 'uuid';
 import { ICookingtime } from '~~/types';
-import useModalStore from '../stores/modal';
-import RecipeEditor from './RecipeEditor.vue';
-import VideoUrlModal from './VideoUrlModal.vue';
-import RecipeImageUploadModal from './RecipeImageUploadModal.vue';
-import RecipeUrlInputModal from './RecipeUrlInputModal.vue';
-import RecipeTextInputModal from './RecipeTextInputModal.vue';
+import useModalStore from '../../stores/modal';
+import RecipeEditor from './recipe-rich-text-editor.vue';
+import VideoUrlModal from './recipe-video-url-modal.vue';
+import RecipeUrlInputModal from './recipe-url-input-modal.vue';
+import RecipeTextInputModal from './recipe-text-input-modal.vue';
+import RecipeImageUploadModal from './recipe-image-upload-modal.vue';
 
 const displayTime = ref(false);
 const store = useModalStore();
@@ -187,7 +187,7 @@ const showImageUploadModal = () => {
 
   <form class="relative px-4 " @submit="handleRecipeSubmit">
     <label for="title" class="text-xs block mt-4 lg:mt-0">title</label>
-    <input class="focus:outline-none w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b py-2" :value="recipe.title" name="title" id="title" @input="inputTitle($event)"  required type="text" />
+    <input class="focus:outline-none w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b py-2" :value="recipe?.title" name="title" id="title" @input="inputTitle($event)"  required type="text" />
     <button @click.prevent="openIngredientModal" class="hidden lg:block btn btn-sm my-4 w-full hover:bg-gray-200  hover:text-gray-600 border-gray-300 hover:border-gray-400 text-gray-600 border uppercase text-md btn-outline py-2 rounded-sm">
       add ingredient
     </button>
@@ -211,11 +211,11 @@ const showImageUploadModal = () => {
 
     </div>
 
-    <button v-show="recipe.cookingtime.length !== 3" @click.prevent="addCookingTime" class="btn btn-sm rounded-sm hover:bg-gray-200 hover:text-gray-600 hover:border-gray-400 border-gray-300 text-gray-600 mb-2 mt-4 w-full uppercase text-md btn-outline py-2">
+    <button v-show="recipe?.cookingtime.length !== 3" @click.prevent="addCookingTime" class="btn btn-sm rounded-sm hover:bg-gray-200 hover:text-gray-600 hover:border-gray-400 border-gray-300 text-gray-600 mb-2 mt-4 w-full uppercase text-md btn-outline py-2">
       add cooking time
     </button>
 
-    <div class="flex w-full md:justify-between relative" v-for="(item) in recipe.cookingtime" :key="item.id">
+    <div class="flex w-full md:justify-between relative" v-for="(item) in recipe?.cookingtime" :key="item.id">
       <div>
         <label for="cookingtitle" class="mt-5 text-xs block">title</label>
         <input type="text" v-model="item.title" required class="mt-5 p-1 outline-none border-b border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 w-24 md:w-48 lg:w-24 capitalize" />
@@ -236,16 +236,16 @@ const showImageUploadModal = () => {
     </div>
 
     <label for="description" class="text-xs block mt-4">description</label>
-    <textarea row="0" :value="recipe.description" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none resize-none" name="description" id="description" type="text" @input="e => inputDescription(e)"></textarea>
+    <textarea row="0" :value="recipe?.description" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none resize-none" name="description" id="description" type="text" @input="e => inputDescription(e)"></textarea>
 
     <label for="source" class="text-xs block mt-4">source</label>
-    <input :value="recipe.source" autocomplete="off" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none py-2" name="source" id="source" type="text" @input="inputSource"/>
+    <input :value="recipe?.source" autocomplete="off" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none py-2" name="source" id="source" type="text" @input="inputSource"/>
 
     <label for="url" class="text-xs block mt-4">url</label>
-    <input type="url" :value="recipe.url" autocomplete="off" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none py-2" name="url" id="url" @input="inputUrl"/>
+    <input type="url" :value="recipe?.url" autocomplete="off" class="w-full border-gray-300 bg-white md:bg-gray-100 lg:bg-gray-100 border-b outline-none py-2" name="url" id="url" @input="inputUrl"/>
 
     <label for="yield" class="text-xs block mt-4">yield</label>
-    <input autocomplete="off" :value="recipe.yields" class=" w-full border-b border-gray-300  bg-white md:bg-gray-100 lg:bg-gray-100 outline-none py-2" name="yield" id="yield" type="text" @input="inputYield"/>
+    <input autocomplete="off" :value="recipe?.yields" class=" w-full border-b border-gray-300  bg-white md:bg-gray-100 lg:bg-gray-100 outline-none py-2" name="yield" id="yield" type="text" @input="inputYield"/>
 
     <div class="hidden md:flex md:gap-x-4 lg:flex lg:justify-between fixed bottom-2 w-80 md:w-72 lg:w-[300px] md:relative lg:fixed bg-gray-100">
       <button type="button" @click="clearFormData" class="btn btn-sm btn-outline border-[#4b371c] bg-gray-100 text-[#4b371c] rounded-none">
