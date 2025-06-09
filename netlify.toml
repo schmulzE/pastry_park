@@ -4,3 +4,6 @@
 [build]
   command = "yarn build"
   publish = "dist"
+
+[functions]
+  directory = "dist/.netlify/functions-internal"
